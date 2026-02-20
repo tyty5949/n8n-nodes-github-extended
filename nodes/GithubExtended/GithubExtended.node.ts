@@ -23,6 +23,7 @@ export class GithubExtended implements INodeType {
 
 		requestDefaults: {
 			baseURL: 'https://api.github.com',
+			url: '',
 			headers: {
 				Accept: 'application/vnd.github+json',
 				'Content-Type': 'application/json',

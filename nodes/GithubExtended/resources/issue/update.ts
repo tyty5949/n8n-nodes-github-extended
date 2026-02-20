@@ -7,7 +7,23 @@ export const updateIssueDescription: INodeProperties[] = [
 		type: 'options',
 		noDataExpression: true,
 		displayOptions: { show: { resource: ['issue'] } },
-		options: [{ name: 'Update', value: 'update', action: 'Update an issue' }],
+		options: [
+			{
+				name: 'Update',
+				value: 'update',
+				description: 'Update an issue (body)',
+				routing: {
+					request: {
+						method: 'PATCH',
+						url: '=/repos/{{$parameter.owner}}/{{$parameter.repo}}/issues/{{$parameter.issueNumber}}',
+						body: {
+							body: '={{$parameter.body}}',
+						},
+					},
+				},
+				action: 'Update an issue',
+			},
+		],
 		default: 'update',
 	},
 	{
@@ -41,17 +57,6 @@ export const updateIssueDescription: INodeProperties[] = [
 		typeOptions: { rows: 8 },
 		required: true,
 		default: '',
-		displayOptions: { show: { resource: ['issue'], operation: ['update'] } },
-	},
-	{
-		displayName: 'Request',
-		name: 'request',
-		type: 'hidden',
-		default: {
-			method: 'PATCH',
-			url: '=/repos/{{$parameter.owner}}/{{$parameter.repo}}/issues/{{$parameter.issueNumber}}',
-			body: { body: '={{$parameter.body}}' },
-		},
 		displayOptions: { show: { resource: ['issue'], operation: ['update'] } },
 	},
 ];

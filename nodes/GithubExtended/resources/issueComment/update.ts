@@ -7,9 +7,26 @@ export const updateIssueCommentDescription: INodeProperties[] = [
 		type: 'options',
 		noDataExpression: true,
 		displayOptions: { show: { resource: ['issueComment'] } },
-		options: [{ name: 'Update', value: 'update', action: 'Update an issue comment' }],
+		options: [
+			{
+				name: 'Update',
+				value: 'update',
+				description: 'Update an issue comment',
+				routing: {
+					request: {
+						method: 'PATCH',
+						url: '=/repos/{{$parameter.owner}}/{{$parameter.repo}}/issues/comments/{{$parameter.commentId}}',
+						body: {
+							body: '={{$parameter.body}}',
+						},
+					},
+				},
+				action: 'Update an issue comment',
+			},
+		],
 		default: 'update',
 	},
+
 	{
 		displayName: 'Owner',
 		name: 'owner',
@@ -41,17 +58,6 @@ export const updateIssueCommentDescription: INodeProperties[] = [
 		typeOptions: { rows: 8 },
 		required: true,
 		default: '',
-		displayOptions: { show: { resource: ['issueComment'], operation: ['update'] } },
-	},
-	{
-		displayName: 'Request',
-		name: 'request',
-		type: 'hidden',
-		default: {
-			method: 'PATCH',
-			url: '=/repos/{{$parameter.owner}}/{{$parameter.repo}}/issues/comments/{{$parameter.commentId}}',
-			body: { body: '={{$parameter.body}}' },
-		},
 		displayOptions: { show: { resource: ['issueComment'], operation: ['update'] } },
 	},
 ];

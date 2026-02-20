@@ -7,7 +7,23 @@ export const updatePullRequestDescription: INodeProperties[] = [
 		type: 'options',
 		noDataExpression: true,
 		displayOptions: { show: { resource: ['pullRequest'] } },
-		options: [{ name: 'Update', value: 'update', action: 'Update a pull request' }],
+		options: [
+			{
+				name: 'Update',
+				value: 'update',
+				description: 'Update a pull request (body)',
+				routing: {
+					request: {
+						method: 'PATCH',
+						url: '=/repos/{{$parameter.owner}}/{{$parameter.repo}}/pulls/{{$parameter.pullNumber}}',
+						body: {
+							body: '={{$parameter.body}}',
+						},
+					},
+				},
+				action: 'Update a pull request',
+			},
+		],
 		default: 'update',
 	},
 	{
@@ -41,17 +57,6 @@ export const updatePullRequestDescription: INodeProperties[] = [
 		typeOptions: { rows: 8 },
 		required: true,
 		default: '',
-		displayOptions: { show: { resource: ['pullRequest'], operation: ['update'] } },
-	},
-	{
-		displayName: 'Request',
-		name: 'request',
-		type: 'hidden',
-		default: {
-			method: 'PATCH',
-			url: '=/repos/{{$parameter.owner}}/{{$parameter.repo}}/pulls/{{$parameter.pullNumber}}',
-			body: { body: '={{$parameter.body}}' },
-		},
 		displayOptions: { show: { resource: ['pullRequest'], operation: ['update'] } },
 	},
 ];

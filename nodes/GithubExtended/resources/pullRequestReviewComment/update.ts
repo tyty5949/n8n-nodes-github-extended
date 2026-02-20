@@ -7,7 +7,23 @@ export const updatePullRequestReviewCommentDescription: INodeProperties[] = [
 		type: 'options',
 		noDataExpression: true,
 		displayOptions: { show: { resource: ['pullRequestReviewComment'] } },
-		options: [{ name: 'Update', value: 'update', action: 'Update a pull request review comment' }],
+		options: [
+			{
+				name: 'Update',
+				value: 'update',
+				description: 'Update an inline pull request review comment',
+				routing: {
+					request: {
+						method: 'PATCH',
+						url: '=/repos/{{$parameter.owner}}/{{$parameter.repo}}/pulls/comments/{{$parameter.commentId}}',
+						body: {
+							body: '={{$parameter.body}}',
+						},
+					},
+				},
+				action: 'Update a pull request review comment',
+			},
+		],
 		default: 'update',
 	},
 	{
@@ -41,17 +57,6 @@ export const updatePullRequestReviewCommentDescription: INodeProperties[] = [
 		typeOptions: { rows: 8 },
 		required: true,
 		default: '',
-		displayOptions: { show: { resource: ['pullRequestReviewComment'], operation: ['update'] } },
-	},
-	{
-		displayName: 'Request',
-		name: 'request',
-		type: 'hidden',
-		default: {
-			method: 'PATCH',
-			url: '=/repos/{{$parameter.owner}}/{{$parameter.repo}}/pulls/comments/{{$parameter.commentId}}',
-			body: { body: '={{$parameter.body}}' },
-		},
 		displayOptions: { show: { resource: ['pullRequestReviewComment'], operation: ['update'] } },
 	},
 ];
