@@ -2,31 +2,6 @@ import type { INodeProperties } from 'n8n-workflow';
 
 export const createReactionPullRequestReviewCommentDescription: INodeProperties[] = [
 	{
-		displayName: 'Operation',
-		name: 'operation',
-		type: 'options',
-		noDataExpression: true,
-		displayOptions: { show: { resource: ['pullRequestReviewComment'] } },
-		options: [
-			{
-				name: 'Create Reaction',
-				value: 'createReaction',
-				description: 'Create a reaction for a pull request review comment',
-				routing: {
-					request: {
-						method: 'POST',
-						url: '=/repos/{{$parameter.owner}}/{{$parameter.repo}}/pulls/comments/{{$parameter.commentId}}/reactions',
-						body: {
-							content: '={{$parameter.content}}',
-						},
-					},
-				},
-				action: 'Create a reaction for a pull request review comment',
-			},
-		],
-		default: 'createReaction',
-	},
-	{
 		displayName: 'Owner',
 		name: 'owner',
 		type: 'string',

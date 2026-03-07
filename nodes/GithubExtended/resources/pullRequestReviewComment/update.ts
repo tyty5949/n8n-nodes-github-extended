@@ -9,6 +9,21 @@ export const updatePullRequestReviewCommentDescription: INodeProperties[] = [
 		displayOptions: { show: { resource: ['pullRequestReviewComment'] } },
 		options: [
 			{
+				name: 'Create Reaction',
+				value: 'createReaction',
+				description: 'Create a reaction for a pull request review comment',
+				routing: {
+					request: {
+						method: 'POST',
+						url: '=/repos/{{$parameter.owner}}/{{$parameter.repo}}/pulls/comments/{{$parameter.commentId}}/reactions',
+						body: {
+							content: '={{$parameter.content}}',
+						},
+					},
+				},
+				action: 'Create a reaction for a pull request review comment',
+			},
+			{
 				name: 'Update',
 				value: 'update',
 				description: 'Update an inline pull request review comment',
