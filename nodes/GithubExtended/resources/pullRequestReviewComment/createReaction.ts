@@ -2,30 +2,6 @@ import type { INodeProperties } from 'n8n-workflow';
 
 export const createReactionPullRequestReviewCommentDescription: INodeProperties[] = [
 	{
-		displayName: 'Owner',
-		name: 'owner',
-		type: 'string',
-		required: true,
-		default: '',
-		displayOptions: { show: { resource: ['pullRequestReviewComment'], operation: ['createReaction'] } },
-	},
-	{
-		displayName: 'Repository',
-		name: 'repo',
-		type: 'string',
-		required: true,
-		default: '',
-		displayOptions: { show: { resource: ['pullRequestReviewComment'], operation: ['createReaction'] } },
-	},
-	{
-		displayName: 'Review Comment ID',
-		name: 'commentId',
-		type: 'number',
-		required: true,
-		default: 0,
-		displayOptions: { show: { resource: ['pullRequestReviewComment'], operation: ['createReaction'] } },
-	},
-	{
 		displayName: 'Reaction',
 		name: 'content',
 		type: 'options',

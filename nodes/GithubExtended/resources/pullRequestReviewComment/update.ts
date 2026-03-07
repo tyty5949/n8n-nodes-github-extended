@@ -47,7 +47,7 @@ export const updatePullRequestReviewCommentDescription: INodeProperties[] = [
 		type: 'string',
 		required: true,
 		default: '',
-		displayOptions: { show: { resource: ['pullRequestReviewComment'], operation: ['update'] } },
+		displayOptions: { show: { resource: ['pullRequestReviewComment'], operation: ['createReaction', 'update'] } },
 	},
 	{
 		displayName: 'Repository',
@@ -55,7 +55,7 @@ export const updatePullRequestReviewCommentDescription: INodeProperties[] = [
 		type: 'string',
 		required: true,
 		default: '',
-		displayOptions: { show: { resource: ['pullRequestReviewComment'], operation: ['update'] } },
+		displayOptions: { show: { resource: ['pullRequestReviewComment'], operation: ['createReaction', 'update'] } },
 	},
 	{
 		displayName: 'Review Comment ID',
@@ -63,7 +63,7 @@ export const updatePullRequestReviewCommentDescription: INodeProperties[] = [
 		type: 'number',
 		required: true,
 		default: 0,
-		displayOptions: { show: { resource: ['pullRequestReviewComment'], operation: ['update'] } },
+		displayOptions: { show: { resource: ['pullRequestReviewComment'], operation: ['createReaction', 'update'] } },
 	},
 	{
 		displayName: 'Body',
