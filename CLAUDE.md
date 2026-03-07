@@ -15,6 +15,8 @@ npm run release        # Release a new version
 
 There are no tests in this project.
 
+> **Note:** Always run `nvm use` before `npm run build` or `npm run lint`. After deploying a new build, a full n8n restart is required to pick up node definition changes. If a workflow shows ghost/invalid parameter fields, delete and re-add the node to clear stale saved parameter values.
+
 ## Architecture
 
 This is an n8n community node package that adds GitHub operations missing from the built-in n8n GitHub node. It uses the **declarative-style** n8n node pattern, where API calls are defined entirely through `INodeProperties` descriptors rather than imperative code — there is no `execute()` method.
@@ -43,11 +45,21 @@ credentials/
   GithubExtendedOAuth2Api.credentials.ts  # OAuth2 credential extending oAuth2Api
 ```
 
+### Multiple operations per resource
+
+When a resource has more than one operation:
+
+- **One `operation` property only.** Define the `operation` selector (with all options and their `routing`) in a single file (e.g. `update.ts`). Never define a second `operation` property in another operation file — n8n will render both as separate dropdowns.
+- **Shared fields once.** Fields used by multiple operations (e.g. `owner`, `repo`, `commentId`) must be defined once with all relevant operations listed: `displayOptions: { show: { operation: ['opA', 'opB'] } }`. Duplicate property names interfere ([n8n #13049](https://github.com/n8n-io/n8n/issues/13049)).
+- **Operation selector first.** In `index.ts`, spread the file containing the `operation` selector before operation-specific field files so the selector renders at the top of the UI.
+- **Operation-specific files** export only their unique fields (no `operation` selector, no shared fields).
+
 ### Adding a new operation
 
-1. Create `nodes/GithubExtended/resources/<resource>/<operation>.ts` exporting an `INodeProperties[]`.
-2. Export it from `resources/<resource>/index.ts`.
-3. Spread it into the `properties` array in `GithubExtended.node.ts`.
+1. Create `nodes/GithubExtended/resources/<resource>/<operation>.ts` exporting an `INodeProperties[]` with only that operation's unique fields.
+2. Add the operation's option (with `routing`) to the existing `operation` selector in the resource's primary file.
+3. Add shared fields (owner, repo, etc.) to the existing shared field definitions by appending the new operation name to their `displayOptions`.
+4. Export the new file from `resources/<resource>/index.ts`, spread after the file containing the `operation` selector.
 
 ### Adding a new resource
 
