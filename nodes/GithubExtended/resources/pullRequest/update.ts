@@ -9,6 +9,21 @@ export const updatePullRequestDescription: INodeProperties[] = [
 		displayOptions: { show: { resource: ['pullRequest'] } },
 		options: [
 			{
+				name: 'Create Comment',
+				value: 'createComment',
+				description: 'Create a comment on a pull request',
+				routing: {
+					request: {
+						method: 'POST',
+						url: '=/repos/{{$parameter.owner}}/{{$parameter.repo}}/issues/{{$parameter.pullNumber}}/comments',
+						body: {
+							body: '={{$parameter.body}}',
+						},
+					},
+				},
+				action: 'Create a comment on a pull request',
+			},
+			{
 				name: 'Update',
 				value: 'update',
 				description: 'Update a pull request (body)',
@@ -24,7 +39,7 @@ export const updatePullRequestDescription: INodeProperties[] = [
 				action: 'Update a pull request',
 			},
 		],
-		default: 'update',
+		default: 'createComment',
 	},
 	{
 		displayName: 'Owner',
@@ -32,7 +47,7 @@ export const updatePullRequestDescription: INodeProperties[] = [
 		type: 'string',
 		required: true,
 		default: '',
-		displayOptions: { show: { resource: ['pullRequest'], operation: ['update'] } },
+		displayOptions: { show: { resource: ['pullRequest'], operation: ['createComment', 'update'] } },
 	},
 	{
 		displayName: 'Repository',
@@ -40,7 +55,7 @@ export const updatePullRequestDescription: INodeProperties[] = [
 		type: 'string',
 		required: true,
 		default: '',
-		displayOptions: { show: { resource: ['pullRequest'], operation: ['update'] } },
+		displayOptions: { show: { resource: ['pullRequest'], operation: ['createComment', 'update'] } },
 	},
 	{
 		displayName: 'Pull Request Number',
@@ -48,7 +63,7 @@ export const updatePullRequestDescription: INodeProperties[] = [
 		type: 'number',
 		required: true,
 		default: 0,
-		displayOptions: { show: { resource: ['pullRequest'], operation: ['update'] } },
+		displayOptions: { show: { resource: ['pullRequest'], operation: ['createComment', 'update'] } },
 	},
 	{
 		displayName: 'Body',
@@ -57,6 +72,6 @@ export const updatePullRequestDescription: INodeProperties[] = [
 		typeOptions: { rows: 8 },
 		required: true,
 		default: '',
-		displayOptions: { show: { resource: ['pullRequest'], operation: ['update'] } },
+		displayOptions: { show: { resource: ['pullRequest'], operation: ['createComment', 'update'] } },
 	},
 ];
