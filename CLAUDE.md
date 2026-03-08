@@ -52,7 +52,8 @@ When a resource has more than one operation:
 - **One `operation` property only.** Define the `operation` selector (with all options and their `routing`) in a single file (e.g. `update.ts`). Never define a second `operation` property in another operation file — n8n will render both as separate dropdowns.
 - **Shared fields once.** Fields used by multiple operations (e.g. `owner`, `repo`, `commentId`) must be defined once with all relevant operations listed: `displayOptions: { show: { operation: ['opA', 'opB'] } }`. Duplicate property names interfere ([n8n #13049](https://github.com/n8n-io/n8n/issues/13049)).
 - **Operation selector first.** In `index.ts`, spread the file containing the `operation` selector before operation-specific field files so the selector renders at the top of the UI.
-- **Operation-specific files** export only their unique fields (no `operation` selector, no shared fields).
+- **Operation-specific files** export only their unique fields (no `operation` selector, no shared fields). Every operation **must** have its own file, even if it only contains one field.
+- **Never share fields that are semantically different.** If two operations both send a `body` to the API but it means different things (e.g. PR description vs. comment text), they must use **different n8n parameter names** (e.g. `body` vs. `commentBody` vs. `updateCommentBody`). Each lives in its own operation-specific file with its own `displayOptions`. Sharing a field by listing both operations in `displayOptions` only works when the field is truly identical in meaning and the user would enter the same kind of value.
 
 ### Adding a new operation
 
