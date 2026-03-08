@@ -17,7 +17,7 @@ export const updatePullRequestDescription: INodeProperties[] = [
 						method: 'POST',
 						url: '=/repos/{{$parameter.owner}}/{{$parameter.repo}}/issues/{{$parameter.pullNumber}}/comments',
 						body: {
-							body: '={{$parameter.body}}',
+							body: '={{$parameter.commentBody}}',
 						},
 					},
 				},
@@ -72,6 +72,6 @@ export const updatePullRequestDescription: INodeProperties[] = [
 		typeOptions: { rows: 8 },
 		required: true,
 		default: '',
-		displayOptions: { show: { resource: ['pullRequest'], operation: ['createComment', 'update'] } },
+		displayOptions: { show: { resource: ['pullRequest'], operation: ['update'] } },
 	},
 ];
