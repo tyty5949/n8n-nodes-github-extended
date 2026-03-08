@@ -38,6 +38,21 @@ export const updatePullRequestDescription: INodeProperties[] = [
 				},
 				action: 'Update a pull request',
 			},
+			{
+				name: 'Update Comment',
+				value: 'updateComment',
+				description: 'Update a comment on a pull request',
+				routing: {
+					request: {
+						method: 'PATCH',
+						url: '=/repos/{{$parameter.owner}}/{{$parameter.repo}}/issues/comments/{{$parameter.commentId}}',
+						body: {
+							body: '={{$parameter.updateCommentBody}}',
+						},
+					},
+				},
+				action: 'Update a comment on a pull request',
+			},
 		],
 		default: 'createComment',
 	},
@@ -47,7 +62,7 @@ export const updatePullRequestDescription: INodeProperties[] = [
 		type: 'string',
 		required: true,
 		default: '',
-		displayOptions: { show: { resource: ['pullRequest'], operation: ['createComment', 'update'] } },
+		displayOptions: { show: { resource: ['pullRequest'], operation: ['createComment', 'update', 'updateComment'] } },
 	},
 	{
 		displayName: 'Repository',
@@ -55,7 +70,7 @@ export const updatePullRequestDescription: INodeProperties[] = [
 		type: 'string',
 		required: true,
 		default: '',
-		displayOptions: { show: { resource: ['pullRequest'], operation: ['createComment', 'update'] } },
+		displayOptions: { show: { resource: ['pullRequest'], operation: ['createComment', 'update', 'updateComment'] } },
 	},
 	{
 		displayName: 'Pull Request Number',
