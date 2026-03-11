@@ -9,6 +9,21 @@ export const updateIssueCommentDescription: INodeProperties[] = [
 		displayOptions: { show: { resource: ['issueComment'] } },
 		options: [
 			{
+				name: 'Create Reaction',
+				value: 'createReaction',
+				description: 'Create a reaction for an issue comment',
+				routing: {
+					request: {
+						method: 'POST',
+						url: '=/repos/{{$parameter.owner}}/{{$parameter.repo}}/issues/comments/{{$parameter.commentId}}/reactions',
+						body: {
+							content: '={{$parameter.content}}',
+						},
+					},
+				},
+				action: 'Create a reaction for an issue comment',
+			},
+			{
 				name: 'Update',
 				value: 'update',
 				description: 'Update an issue comment',
@@ -33,7 +48,7 @@ export const updateIssueCommentDescription: INodeProperties[] = [
 		type: 'string',
 		required: true,
 		default: '',
-		displayOptions: { show: { resource: ['issueComment'], operation: ['update'] } },
+		displayOptions: { show: { resource: ['issueComment'], operation: ['createReaction', 'update'] } },
 	},
 	{
 		displayName: 'Repository',
@@ -41,7 +56,7 @@ export const updateIssueCommentDescription: INodeProperties[] = [
 		type: 'string',
 		required: true,
 		default: '',
-		displayOptions: { show: { resource: ['issueComment'], operation: ['update'] } },
+		displayOptions: { show: { resource: ['issueComment'], operation: ['createReaction', 'update'] } },
 	},
 	{
 		displayName: 'Comment ID',
@@ -49,7 +64,7 @@ export const updateIssueCommentDescription: INodeProperties[] = [
 		type: 'number',
 		required: true,
 		default: 0,
-		displayOptions: { show: { resource: ['issueComment'], operation: ['update'] } },
+		displayOptions: { show: { resource: ['issueComment'], operation: ['createReaction', 'update'] } },
 	},
 	{
 		displayName: 'Body',

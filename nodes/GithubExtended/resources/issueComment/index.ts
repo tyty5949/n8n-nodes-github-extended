@@ -1,2 +1,6 @@
 import { updateIssueCommentDescription } from './update';
-export const issueCommentDescription = [...updateIssueCommentDescription];
+import { createReactionIssueCommentDescription } from './createReaction';
+export const issueCommentDescription = [
+	...updateIssueCommentDescription,
+	...createReactionIssueCommentDescription,
+];
