@@ -62,7 +62,9 @@ export const updatePullRequestDescription: INodeProperties[] = [
 		type: 'string',
 		required: true,
 		default: '',
-		displayOptions: { show: { resource: ['pullRequest'], operation: ['createComment', 'update', 'updateComment'] } },
+		displayOptions: {
+			show: { resource: ['pullRequest'], operation: ['createComment', 'update', 'updateComment'] },
+		},
 	},
 	{
 		displayName: 'Repository',
@@ -70,7 +72,9 @@ export const updatePullRequestDescription: INodeProperties[] = [
 		type: 'string',
 		required: true,
 		default: '',
-		displayOptions: { show: { resource: ['pullRequest'], operation: ['createComment', 'update', 'updateComment'] } },
+		displayOptions: {
+			show: { resource: ['pullRequest'], operation: ['createComment', 'update', 'updateComment'] },
+		},
 	},
 	{
 		displayName: 'Pull Request Number',
